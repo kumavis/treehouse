@@ -48,7 +48,7 @@ function renderNodeData(nodeData){
 
 let nodeRenderers = {
   Program: (nodeData) =>                 h('div', `prog`),
-  VariableDeclaration: (nodeData) =>     h('div', `${nodeData.node.kind}:`),
+  VariableDeclaration: (nodeData) =>     h('div', `${nodeData.node.kind}`),
   VariableDeclarator: (nodeData) =>      h('div', `=`),
   Identifier: (nodeData) =>              h('.bold', `${nodeData.node.name}`),
   ExpressionStatement: (nodeData) =>     h('div', `()`),
