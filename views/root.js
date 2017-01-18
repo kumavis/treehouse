@@ -30,6 +30,12 @@ function getStyle(){
   .bold {
     font-weight: bold;
   }
+
+  input:focus {
+    outline: none;
+    padding: 0;
+    border: none;
+  }
   `
 }
 

@@ -37,11 +37,16 @@ pipe(
 )
 
 function dispatch(action){
-  if (action.method === 'setLiteral') {
-    let state = rootStore.getState()
-    action.nodeData.node.value = action.value
-    rootStore.putState(state)
+  let state = rootStore.getState()
+  switch (action.method) {
+    case 'setLiteral':
+      action.nodeData.node.value = action.value
+      break
+    case 'setIdentifier':
+      action.nodeData.node.name = action.value
+      break
   }
+  rootStore.putState(state)
 }
 
 // setup dom and redraw

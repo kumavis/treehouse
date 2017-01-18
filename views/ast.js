@@ -19,7 +19,18 @@ let nodeRenderers = {
   FunctionDeclaration: (state, nodeData, dispatch) =>     h('div', `λ`),
   BlockStatement: (state, nodeData, dispatch) =>          h('div', `{`),
   ReturnStatement: (state, nodeData, dispatch) =>         h('div', `<-`),
-  Identifier: (state, nodeData, dispatch) =>              h('.bold', `${nodeData.node.name}`),
+  Identifier: (state, nodeData, dispatch) => {
+    return nodeData.selected ?
+      autoInput({
+        value: nodeData.node.name,
+        onUpdate: (value) => dispatch({
+          method: 'setIdentifier',
+          nodeData: nodeData,
+          value: value,
+        })
+      })
+      : h('.bold', `${nodeData.node.name}`)
+  },
   Literal: (state, nodeData, dispatch) => {
     return nodeData.selected ?
       autoInput({
