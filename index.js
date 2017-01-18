@@ -1,5 +1,4 @@
 const recast = require('recast')
-const key = require('keymaster')
 const ObservableStore = require('obs-store')
 const ComposedStore = require('obs-store/lib/composed')
 const pipe = require('mississippi').pipe
@@ -37,19 +36,31 @@ pipe(
   tailStore
 )
 
+function dispatch(action){
+  if (action.method === 'setLiteral') {
+    let state = rootStore.getState()
+    action.nodeData.node.value = action.value
+    rootStore.putState(state)
+  }
+}
+
 // setup dom and redraw
 
 let { rootNode, updateDom } = vdom()
 document.body.appendChild(rootNode)
 
 tailStore.subscribe((state) => {
-  updateDom(renderRoot(state))
+  updateDom(renderRoot(state, dispatch))
 })
 
 // setup key bindings
 
-key('up', () => moveCursor(-1))
-key('down', () => moveCursor(1))
+window.addEventListener('keydown', (ev) => {
+  // up
+  if (ev.keyCode === 38) moveCursor(-1)
+  // down
+  if (ev.keyCode === 40) moveCursor(1)
+})
 
 function moveCursor(delta){
   let state = rootStore.getState()
