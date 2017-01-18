@@ -1,0 +1,29 @@
+{
+  "name": "treehouse",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "browserify index.js | testling"
+  },
+  "author": "",
+  "license": "ISC",
+  "browserify": {
+    "transform": [
+      "brfs",
+      ["babelify", { "presets": ["es2015"] }]
+    ]
+  },
+  "dependencies": {
+    "choo": "^4.0.3",
+    "recast": "^0.11.18",
+    "virtual-dom": "^2.1.1"
+  },
+  "devDependencies": {
+    "babel-preset-es2015": "^6.18.0",
+    "babelify": "^7.3.0",
+    "brfs": "^1.4.3",
+    "browserify": "^13.3.0",
+    "testling": "^1.7.1"
+  }
+}
