@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "wzrd index.js",
-    "test": "browserify index.js | testling"
+    "start": "wzrd index.js:bundle.js",
+    "test": "browserify index.js | testling",
+    "publish": "browserify index.js -o ./build/bundle.js && surge --project ./build --domain kumavis-treehouse.surge.sh"
   },
   "author": "",
   "license": "ISC",
