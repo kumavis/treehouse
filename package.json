@@ -24,6 +24,9 @@
   },
   "dependencies": {
     "choo": "^4.0.3",
+    "keymaster": "^1.6.2",
+    "mississippi": "^1.2.0",
+    "obs-store": "^1.1.0",
     "recast": "^0.11.18",
     "virtual-dom": "^2.1.1"
   },

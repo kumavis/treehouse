@@ -5,6 +5,8 @@ module.exports = function(state, prev, send) {
 
     h('div', [
       h('style', getStyle()),
+      
+      h('div', `${state.cursorIndex}: ${state.flatAst[state.cursorIndex].selected}`),
       h('div', renderAst(state)),
     ])
 
@@ -20,6 +22,10 @@ function getStyle(){
     border: 1px solid pink;
   }
 
+  .ast-selected {
+    background: gray;
+  }
+
   .bold {
     font-weight: bold;
   }
@@ -27,40 +33,44 @@ function getStyle(){
 }
 
 function renderAst(state){
-  let flatNodeData = flattenAst(state.ast.program)
-  return flatNodeData.map(renderNodeData)
+  return state.flatAst.map((nodeData) => {
+    return renderNodeData(state, nodeData)
+  })
 }
 
-function renderNodeData(nodeData){
+function renderNodeData(state, nodeData){
   let nodeRenderer = getRendererForType(nodeData.node.type)
+  let classNames = ['ast-node', nodeData.selected && 'ast-selected']
+  let selector = '.'+classNames.filter(Boolean).join('.')
   return (
 
-    h('.ast-node', {
+    h(selector, {
       style: {
         paddingLeft: (12 * nodeData.depth)+'px',
       }
     }, [
-      nodeRenderer(nodeData)
+      nodeRenderer(state, nodeData)
     ])
 
   )
 }
 
 let nodeRenderers = {
-  Program: (nodeData) =>                 h('div', `prog`),
-  VariableDeclaration: (nodeData) =>     h('div', `${nodeData.node.kind}`),
-  VariableDeclarator: (nodeData) =>      h('div', `=`),
-  Identifier: (nodeData) =>              h('.bold', `${nodeData.node.name}`),
-  ExpressionStatement: (nodeData) =>     h('div', `()`),
-  CallExpression: (nodeData) =>          h('div', `call`),
-  MemberExpression: (nodeData) =>        h('div', `.`),
-  ObjectExpression: (nodeData) =>        h('div', `{}`),
-  ArrowFunctionExpression: (nodeData) => h('div', `=>`),
-  ArrayExpression: (nodeData) =>         h('div', `[]`),
-  Literal: (nodeData) =>                 h('div', `${nodeData.node.raw}`),
-  FunctionDeclaration: (nodeData) =>     h('div', `λ`),
-  BlockStatement: (nodeData) =>          h('div', `{`),
-  ReturnStatement: (nodeData) =>         h('div', `<-`),
+  File:    (state, nodeData) =>                 h('div', `file: "${state.filename}"`),
+  Program: (state, nodeData) =>                 h('div', `prog`),
+  VariableDeclaration: (state, nodeData) =>     h('div', `${nodeData.node.kind}`),
+  VariableDeclarator: (state, nodeData) =>      h('div', `=`),
+  Identifier: (state, nodeData) =>              h('.bold', `${nodeData.node.name}`),
+  ExpressionStatement: (state, nodeData) =>     h('div', `()`),
+  CallExpression: (state, nodeData) =>          h('div', `call`),
+  MemberExpression: (state, nodeData) =>        h('div', `.`),
+  ObjectExpression: (state, nodeData) =>        h('div', `{}`),
+  ArrowFunctionExpression: (state, nodeData) => h('div', `=>`),
+  ArrayExpression: (state, nodeData) =>         h('div', `[]`),
+  Literal: (state, nodeData) =>                 h('div', `${nodeData.node.raw}`),
+  FunctionDeclaration: (state, nodeData) =>     h('div', `λ`),
+  BlockStatement: (state, nodeData) =>          h('div', `{`),
+  ReturnStatement: (state, nodeData) =>         h('div', `<-`),
 }
 
 function getRendererForType(type){
@@ -75,7 +85,7 @@ function getRendererForType(type){
   // }
 }
 
-function renderUnknown(nodeData){
+function renderUnknown(state, nodeData){
   return (
 
     h('.ast-node.ast-unknown', [
