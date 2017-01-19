@@ -1,0 +1,16 @@
+.ast-node {
+  // border: 1px solid black;
+}
+.ast-unknown {
+  border: 1px solid pink;
+}
+
+.ast-selected {
+  background: gray;
+}
+
+input:focus {
+  outline: none;
+  padding: 0;
+  border: none;
+}
