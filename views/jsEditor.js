@@ -21,7 +21,7 @@ function jsEditor(opts) {
           lineNumbers: false,
           tabSize: 2,
         })
-        editor.setValue(opts.value)
+        setTimeout(() => editor.refresh())
       }),
     }),
   ])
