@@ -41,9 +41,11 @@ function dispatch(action){
   switch (action.method) {
     case 'setLiteral':
       action.nodeData.node.value = action.value
+      state.src = recast.print(state.ast).code
       break
     case 'setIdentifier':
       action.nodeData.node.name = action.value
+      state.src = recast.print(state.ast).code
       break
   }
   rootStore.putState(state)
@@ -62,9 +64,17 @@ tailStore.subscribe((state) => {
 
 window.addEventListener('keydown', (ev) => {
   // up
-  if (ev.keyCode === 38) moveCursor(-1)
+  if (ev.keyCode === 38) {
+    ev.stopPropagation()
+    ev.preventDefault()
+    moveCursor(-1)
+  }
   // down
-  if (ev.keyCode === 40) moveCursor(1)
+  if (ev.keyCode === 40) {
+    ev.stopPropagation()
+    ev.preventDefault()
+    moveCursor(1)
+  }
 })
 
 function moveCursor(delta){

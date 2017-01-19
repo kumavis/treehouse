@@ -2,7 +2,7 @@ const h = require('virtual-dom/virtual-hyperscript')
 const libStyles = require('fs').readFileSync(require.resolve('../assets/lib.css'), 'utf8')
 const appStyles = require('fs').readFileSync(require.resolve('../assets/index.css'), 'utf8')
 const renderAst = require('./ast')
-const jsEditor = require('./jsEditor')
+const jsEditor = require('./jsEditor')()
 
 module.exports = function(state, dispatch) {
   return (
