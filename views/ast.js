@@ -19,6 +19,7 @@ let nodeRenderers = {
   FunctionDeclaration: (state, nodeData, dispatch) =>     h('div', `λ`),
   BlockStatement: (state, nodeData, dispatch) =>          h('div', `{`),
   ReturnStatement: (state, nodeData, dispatch) =>         h('div', `<-`),
+  Property: (state, nodeData, dispatch) =>                h('div', `:`),
   Identifier: (state, nodeData, dispatch) => {
     return nodeData.selected ?
       autoInput({
