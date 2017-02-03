@@ -27,7 +27,7 @@
     "choo": "^4.0.3",
     "codemirror": "^5.22.2",
     "mississippi": "^1.2.0",
-    "obs-store": "^1.1.0",
+    "obs-store": "^2.3.1",
     "recast": "^0.11.18",
     "virtual-dom": "^2.1.1",
     "virtual-hyperscript-hook": "^1.0.0",
