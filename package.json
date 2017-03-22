@@ -24,7 +24,7 @@
     ]
   },
   "dependencies": {
-    "choo": "^4.0.3",
+    "choo": "^5.0.1",
     "codemirror": "^5.22.2",
     "mississippi": "^1.2.0",
     "obs-store": "^1.1.0",
